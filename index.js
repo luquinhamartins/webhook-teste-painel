@@ -22,7 +22,7 @@ app.post('/api/chatbot/teste_automatico', async (req, res) => {
   const password = gerarSenha();
 
   try {
-    const response = await axios.post(`https://api.painelcliente.com/trial_create/${TOKEN}`, {
+    const response = await axios.post(https://api.painelcliente.com/trial_create/${TOKEN}, {
       secret: SECRET,
       username,
       password,
@@ -32,19 +32,18 @@ app.post('/api/chatbot/teste_automatico', async (req, res) => {
 
     if (response.data.result) {
       return res.json({
-        result: true,
-        usuario_CenterGO: username,
-        senha_CenterGO: password,
+        usuario_CenterGO: response.data.data.username,
+        senha_CenterGO: response.data.data.password,
         pagamento_CenterGO: PAINEL_URL
       });
     } else {
-      return res.status(400).json({ result: false, erro: response.data.mens });
+      return res.status(400).json({ erro: response.data.mens });
     }
   } catch (error) {
     console.error('Erro ao criar teste:', error.message);
-    return res.status(500).json({ result: false, erro: 'Erro ao comunicar com a API' });
+    return res.status(500).json({ erro: 'Erro ao comunicar com a API' });
   }
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+app.listen(PORT, () => console.log(Servidor rodando na porta ${PORT}));
