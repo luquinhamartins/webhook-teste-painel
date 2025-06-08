@@ -4,12 +4,14 @@ const app = express();
 
 app.use(express.json());
 
+// Gerar usuário numérico (ex: 6 dígitos)
 function gerarUsername() {
-  return 'teste_' + Math.random().toString(36).substring(2, 8);
+  return String(Math.floor(Math.random() * 900000 + 100000));
 }
 
+// Gerar senha numérica (ex: 6 dígitos)
 function gerarSenha() {
-  return Math.random().toString(36).substring(2, 10);
+  return String(Math.floor(Math.random() * 900000 + 100000));
 }
 
 app.post('/api/chatbot/teste_automatico', async (req, res) => {
