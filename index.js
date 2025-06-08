@@ -16,13 +16,14 @@ app.post('/api/chatbot/teste_automatico', async (req, res) => {
   const SECRET = 'd579fee83c19767d4f22b2a9c4e7bbb8';
   const TOKEN = 'PANELCLIENT_9X9G2-A12FD-85O3X-0VTHV';
   const BOUQUET_IDS = [1, 2, 3, 4];
-  const PAINEL_URL = 'https://painelcliente.com/login';
 
   const username = gerarUsername();
   const password = gerarSenha();
 
+  const PAINEL_URL = `https://clienteiptv.com/pagamento?user=${username}`;
+
   try {
-    const response = await axios.post(https://api.painelcliente.com/trial_create/${TOKEN}, {
+    const response = await axios.post(`https://api.painelcliente.com/trial_create/${TOKEN}`, {
       secret: SECRET,
       username,
       password,
@@ -46,4 +47,4 @@ app.post('/api/chatbot/teste_automatico', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(Servidor rodando na porta ${PORT}));
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
