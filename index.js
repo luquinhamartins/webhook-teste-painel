@@ -32,16 +32,17 @@ app.post('/api/chatbot/teste_automatico', async (req, res) => {
 
     if (response.data.result) {
       return res.json({
-        usuario_CenterGO: response.data.data.username,
-        senha_CenterGO: response.data.data.password,
+        result: true,
+        usuario_CenterGO: username,
+        senha_CenterGO: password,
         pagamento_CenterGO: PAINEL_URL
       });
     } else {
-      return res.status(400).json({ erro: response.data.mens });
+      return res.status(400).json({ result: false, erro: response.data.mens });
     }
   } catch (error) {
     console.error('Erro ao criar teste:', error.message);
-    return res.status(500).json({ erro: 'Erro ao comunicar com a API' });
+    return res.status(500).json({ result: false, erro: 'Erro ao comunicar com a API' });
   }
 });
 
