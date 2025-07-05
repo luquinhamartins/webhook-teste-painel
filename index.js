@@ -15,7 +15,7 @@ function gerarSenha() {
 }
 
 app.post('/api/chatbot/teste_automatico', async (req, res) => {
-  const SECRET = 'd579fee83c19767d4f22b2a9c4e7bbb8';
+  const SECRET = 'e24c57edd79e66c0e27975e740cf8289';
   const TOKEN = 'PANELCLIENT_9X9G2-A12FD-85O3X-0VTHV';
   const BOUQUET_IDS = [1, 2, 3, 4];
 
