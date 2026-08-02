@@ -4,14 +4,28 @@ const app = express();
 
 app.use(express.json());
 
-// Gerar usuário numérico (ex: 6 dígitos)
+// Gerar usuário alfanumérico (8 caracteres)
 function gerarUsername() {
-  return String(Math.floor(Math.random() * 900000 + 100000));
+  const caracteres = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let resultado = '';
+
+  for (let i = 0; i < 8; i++) {
+    resultado += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+  }
+
+  return resultado;
 }
 
-// Gerar senha numérica (ex: 6 dígitos)
+// Gerar senha alfanumérica (8 caracteres)
 function gerarSenha() {
-  return String(Math.floor(Math.random() * 900000 + 100000));
+  const caracteres = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let resultado = '';
+
+  for (let i = 0; i < 8; i++) {
+    resultado += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+  }
+
+  return resultado;
 }
 
 app.post('/api/chatbot/teste_automatico', async (req, res) => {
@@ -25,13 +39,16 @@ app.post('/api/chatbot/teste_automatico', async (req, res) => {
   const PAINEL_URL = `https://clienteiptv.com/pagamento?user=${username}`;
 
   try {
-    const response = await axios.post(`https://api.painelcliente.com/trial_create/${TOKEN}`, {
-      secret: SECRET,
-      username,
-      password,
-      idbouquet: BOUQUET_IDS,
-      notes: 'Teste gerado automaticamente via webhook'
-    });
+    const response = await axios.post(
+      `https://api.painelcliente.com/trial_create/${TOKEN}`,
+      {
+        secret: SECRET,
+        username,
+        password,
+        idbouquet: BOUQUET_IDS,
+        notes: 'Teste gerado automaticamente via webhook'
+      }
+    );
 
     if (response.data.result) {
       return res.json({
@@ -40,13 +57,21 @@ app.post('/api/chatbot/teste_automatico', async (req, res) => {
         pagamento_CenterGO: PAINEL_URL
       });
     } else {
-      return res.status(400).json({ erro: response.data.mens });
+      return res.status(400).json({
+        erro: response.data.mens
+      });
     }
   } catch (error) {
     console.error('Erro ao criar teste:', error.message);
-    return res.status(500).json({ erro: 'Erro ao comunicar com a API' });
+
+    return res.status(500).json({
+      erro: 'Erro ao comunicar com a API'
+    });
   }
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
+});
