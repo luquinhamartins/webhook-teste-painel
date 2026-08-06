@@ -4,13 +4,19 @@ const app = express();
 
 app.use(express.json());
 
-// Gerar usuário com letras fáceis de identificar (8 caracteres)
+// Gerar usuário (4 letras fáceis + 4 números)
 function gerarUsername() {
-  const caracteres = 'acdefhjkmnprstuvwxyz';
+  const letras = 'acdefhjkmnprstuvwxyz';
   let resultado = '';
 
-  for (let i = 0; i < 8; i++) {
-    resultado += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+  // 4 letras
+  for (let i = 0; i < 4; i++) {
+    resultado += letras.charAt(Math.floor(Math.random() * letras.length));
+  }
+
+  // 4 números
+  for (let i = 0; i < 4; i++) {
+    resultado += Math.floor(Math.random() * 10);
   }
 
   return resultado;
