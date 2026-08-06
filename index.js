@@ -4,9 +4,9 @@ const app = express();
 
 app.use(express.json());
 
-// Gerar usuário alfanumérico (8 caracteres)
+// Gerar usuário com letras fáceis de identificar (8 caracteres)
 function gerarUsername() {
-  const caracteres = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const caracteres = 'acdefhjkmnprstuvwxyz';
   let resultado = '';
 
   for (let i = 0; i < 8; i++) {
@@ -16,13 +16,12 @@ function gerarUsername() {
   return resultado;
 }
 
-// Gerar senha alfanumérica (8 caracteres)
+// Gerar senha numérica (8 dígitos)
 function gerarSenha() {
-  const caracteres = 'abcdefghijklmnopqrstuvwxyz0123456789';
   let resultado = '';
 
   for (let i = 0; i < 8; i++) {
-    resultado += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    resultado += Math.floor(Math.random() * 10);
   }
 
   return resultado;
@@ -63,6 +62,11 @@ app.post('/api/chatbot/teste_automatico', async (req, res) => {
     }
   } catch (error) {
     console.error('Erro ao criar teste:', error.message);
+
+    if (error.response) {
+      console.error('Status:', error.response.status);
+      console.error('Resposta:', error.response.data);
+    }
 
     return res.status(500).json({
       erro: 'Erro ao comunicar com a API'
